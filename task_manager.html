@@ -1,0 +1,317 @@
+
+
+
+<!-- Login Overlay -->
+<div id="bb-login-overlay">
+  <div class="bb-card">
+    <h2 class="bb-title">🚀 Task Manager</h2>
+    <label>ERPNext Server</label>
+    <input id="bb-server" value="https://sat.bharatbodh.com">
+    <label>Username</label>
+    <input id="bb-username" placeholder="Enter username">
+    <label>Password</label>
+    <input type="password" id="bb-password" placeholder="Enter password">
+    <button id="bb-login" class="bb-btn">Login</button>
+    <div id="bb-msg" class="bb-msg"></div>
+  </div>
+</div>
+
+<!-- Offline Indicator -->
+<div id="offline-indicator" class="offline-indicator"></div>
+
+<!-- Main App -->
+<div id="bb-app">
+  <!-- Header -->
+  <div class="app-header">
+    <div class="header-content">
+      <div class="header-title">
+        <h1>📋 BharatBodh Task Manager</h1>
+      </div>
+      <div class="header-actions">
+        <button id="sync-btn" class="btn-small btn-outline">🔄 Sync</button>
+        <button id="bb-logout" class="btn-small btn-secondary">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs">
+    <div class="tabs-container">
+      <div class="tab active" data-view="dashboard">📊 Dashboard</div>
+      <div class="tab" data-view="my-tasks">✅ My Tasks</div>
+      <div class="tab" data-view="all-tasks">📝 All Tasks</div>
+      <div class="tab" data-view="team">👥 Team View</div>
+      
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Dashboard View -->
+    <div id="dashboard-view" class="view-section active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>TOTAL TASKS</h3>
+          <div class="stat-value" id="stat-total">0</div>
+          <div class="stat-label">All tasks in system</div>
+        </div>
+        <div class="stat-card">
+          <h3>IN PROGRESS</h3>
+          <div class="stat-value" id="stat-progress">0</div>
+          <div class="stat-label">Currently working</div>
+        </div>
+        <div class="stat-card">
+          <h3>COMPLETED</h3>
+          <div class="stat-value" id="stat-completed">0</div>
+          <div class="stat-label">Finished tasks</div>
+        </div>
+        <div class="stat-card">
+          <h3>OVERDUE</h3>
+          <div class="stat-value" id="stat-overdue" style="color: var(--error)">0</div>
+          <div class="stat-label">Need attention</div>
+        </div>
+      </div>
+      
+      <h2 style="margin-bottom: 16px; font-size: 18px;">Recent Tasks</h2>
+      <div id="dashboard-tasks" class="tasks-container"></div>
+    </div>
+
+    <!-- My Tasks View -->
+    <div id="my-tasks-view" class="view-section">
+      <div class="task-filters">
+        <div class="filter-row">
+          <div class="filter-group">
+            <label>Status</label>
+            <select id="filter-my-status">
+              <option value="">All Status</option>
+              <option value="Open">Open</option>
+              <option value="Working">Working</option>
+              <option value="Blocked">Blocked</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Priority</label>
+            <select id="filter-my-priority">
+              <option value="">All Priorities</option>
+              <option value="Urgent">Urgent</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          
+          
+        <div class="filter-group">
+        <label>Project</label>
+        <select id="filter-my-project">
+          <option value="">All Projects</option>
+        </select>
+      </div>
+        </div>
+        
+      </div>
+      <div id="my-tasks-list" class="tasks-container"></div>
+    </div>
+
+    <!-- All Tasks View -->
+    <div id="all-tasks-view" class="view-section">
+      <div class="task-filters">
+        <div class="filter-row">
+          <div class="filter-group">
+            <label>Search</label>
+            <input type="text" id="filter-search" placeholder="Search tasks...">
+          </div>
+          <div class="filter-group">
+            <label>Status</label>
+            <select id="filter-status">
+              <option value="">All Status</option>
+              <option value="Open">Open</option>
+              <option value="Working">Working</option>
+              <option value="Blocked">Blocked</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Priority</label>
+            <select id="filter-priority">
+              <option value="">All Priorities</option>
+              <option value="Urgent">Urgent</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+        <label>Project</label>
+        <select id="filter-project">
+          <option value="">All Projects</option>
+        </select>
+      </div>
+        </div>
+        </div>
+      </div>
+      <div id="all-tasks-list" class="tasks-container"></div>
+    </div>
+
+    <!-- Team View -->
+    <div id="team-view" class="view-section">
+      <div id="team-tasks" class="tasks-container"></div>
+    </div>
+
+    <!-- Reports View -->
+    <div id="reports-view" class="view-section">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>COMPLETION RATE</h3>
+          <div class="stat-value" id="report-rate">0%</div>
+          <div class="stat-label">Tasks completed on time</div>
+        </div>
+        <div class="stat-card">
+          <h3>AVG COMPLETION TIME</h3>
+          <div class="stat-value" id="report-avg">0d</div>
+          <div class="stat-label">Average days to complete</div>
+        </div>
+        <div class="stat-card">
+          <h3>ACTIVE USERS</h3>
+          <div class="stat-value" id="report-users">0</div>
+          <div class="stat-label">Team members working</div>
+        </div>
+        <div class="stat-card">
+          <h3>THIS WEEK</h3>
+          <div class="stat-value" id="report-week">0</div>
+          <div class="stat-label">Tasks completed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Add Button -->
+  <button class="quick-add-btn" id="quick-add">+</button>
+</div>
+
+<!-- Task Modal -->
+<div id="task-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modal-title">Create New Task</h3>
+      <span class="close" id="close-modal">&times;</span>
+    </div>
+    <div class="modal-body">
+      <form id="task-form">
+        <div class="form-row">
+          <label>Task Subject *</label>
+          <input type="text" id="task-subject" required placeholder="What needs to be done?">
+        </div>
+        
+        <div class="form-row">
+          <label>Description</label>
+          <textarea id="task-description" placeholder="Add more details..."></textarea>
+        </div>
+        
+        <div class="form-row project-section">
+          <div class="project-header">
+            <label>Project</label>
+            <button type="button" class="create-project-btn" id="create-project-btn">
+              + Create New Project
+            </button>
+          </div>
+          <select id="task-project">
+            <option value="">No Project</option>
+          </select>
+        </div>
+        
+
+        <div class="form-row form-row-2">
+          <div>
+            <label>Priority</label>
+            <select id="task-priority">
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Low">Low</option>
+              <option value="Urgent">Urgent</option>
+            </select>
+          </div>
+          <div>
+            <label>Status</label>
+            <select id="task-status">
+              <option value="Open">Open</option>
+              <option value="Working">Working</option>
+              <option value="Blocked">Blocked</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row form-row-2">
+          <div>
+            <label>Start Date</label>
+            <input type="date" id="task-start-date">
+          </div>
+          <div>
+            <label>Due Date</label>
+            <input type="date" id="task-end-date">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Assign To (email)</label>
+          <select id="task-assigned-to" placeholder="user@example.com">
+              <option value="">Unassigned</option>
+          </select>
+          
+        </div>
+
+        <div id="task-msg" class="bb-msg"></div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="bb-btn btn-secondary" id="cancel-task">Cancel</button>
+      <button type="submit" form="task-form" class="bb-btn btn-primary">💾 Save Task</button>
+    </div>
+  </div>
+</div>
+<!-- Project Modal -->
+<div id="project-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Create New Project</h3>
+      <span class="close" id="close-project-modal">&times;</span>
+    </div>
+    <div class="modal-body">
+      <form id="project-form">
+        <div class="form-row">
+          <label>Project Name *</label>
+          <input type="text" id="project-name" required placeholder="Enter project name">
+        </div>
+
+        <div class="form-row">
+          <label>Status</label>
+          <select id="project-status">
+            <option value="Open">Open</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+
+        <div class="form-row form-row-2">
+          <div>
+            <label>Expected Start Date</label>
+            <input type="date" id="project-start-date">
+          </div>
+          <div>
+            <label>Expected End Date</label>
+            <input type="date" id="project-end-date">
+          </div>
+        </div>
+
+        <div id="project-msg" class="bb-msg"></div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="bb-btn btn-secondary" id="cancel-project">Cancel</button>
+      <button type="submit" form="project-form" class="bb-btn btn-primary">💾 Create Project</button>
+    </div>
+  </div>
+</div>
